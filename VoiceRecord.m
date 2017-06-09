@@ -2,7 +2,7 @@
 
 fs = 44100;    % Sampling rate in Hz
 nBits = 16 ;     % Bits per sample
-nChannels = 1;     % The number of channels: 1 (mono) or 2 (stereo).
+nChannels = 1;     % The number of channels: 1 (mono) or 2 (stereo)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Collect a sample of your speech with a microphone, and plot the signal data:
@@ -13,8 +13,8 @@ n = str2double(input('Enter how many seconds you want to record ?\n','s')); % re
 
 record(recObj,n);    %recording
 %recordblocking(recObj, n); %recording
-if(strcmp(isrecording(recObj),'true'))
-    disp(' Recording started \n');
+if isrecording(recObj) == 1
+    disp('Recording started');
 end
 disp('Start speaking.');
 
@@ -43,10 +43,16 @@ play(recObj);
 y = getaudiodata(recObj);
 
 % Plot the waveform.
-plot(y);
 
+plot(y);
+xlabel('time');
+ylabel('amplitudes');
 
 % writing into a file 
-filename = input('Enter filename alongwith format\n','s');
-audiowrite(filename,y,fs);
-clear y fs
+temp = input('Do you want to save this audio to a file ?\n','s');
+if temp == 'y'
+    filename = input('Enter filename alongwith format\n','s');
+    audiowrite(filename,y,fs);
+    sprintf('Audio saved as %s',filename);
+    clear y fs
+end
