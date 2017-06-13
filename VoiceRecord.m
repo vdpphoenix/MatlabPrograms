@@ -1,3 +1,5 @@
+% Program to record audio from microphone, play it, plot it and Save it in a wav file.
+
 % Initialisation
 
 fs = 44100;    % Sampling rate in Hz
